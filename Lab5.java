@@ -15,7 +15,7 @@ public class Lab5 {
     final static double QUARTER_3 = 0.75;
     final static int QUARTER_LOW_INDEX = 0;
     final static int QUARTER_HIGH_INDEX = 3;
-    final static int[] QUARTER_ARRAY = {QUARTER_0, QUARTER_1, QUARTER_2, QUARTER_3};
+    final static double[] QUARTER_ARRAY = {QUARTER_0, QUARTER_1, QUARTER_2, QUARTER_3};
     
     public static void main(String args[]) { //-------------------------------MAIN-------------------------------//
 
@@ -50,6 +50,7 @@ public class Lab5 {
             int employeeNumber = IR4.getRandomNumber(EMPLOYEE_NUMBER_MIN, EMPLOYEE_NUMBER_MAX);
             int count;
             // Do while loop to create new numbers while employeeNumber == an existing element in the array
+            // Counter variable acts as a flag to ensure the newly generated value is also unique
             do {
                 count = 0;
                 for (int j = 0; j < array.length; j++) {
@@ -60,6 +61,7 @@ public class Lab5 {
                 }
             } while (count > 0);
 
+            // Assign the value to the index i, then move on to the next iteration of i
             array[i] = employeeNumber;
         }
 
