@@ -1,6 +1,8 @@
 public class Lab5 {
 
     // Constants
+    final static int NUM_OF_EMPLOYEES = 6;
+    
     final static int EMPLOYEE_NUMBER_MIN = 1000;
     final static int EMPLOYEE_NUMBER_MAX = 9999;
     
@@ -15,14 +17,52 @@ public class Lab5 {
     final static int QUARTER_HIGH_INDEX = 3;
     final static int[] QUARTER_ARRAY = {QUARTER_0, QUARTER_1, QUARTER_2, QUARTER_3};
     
-    public static void main(String args[]) {
+    public static void main(String args[]) { //-------------------------------MAIN-------------------------------//
 
+        // Array declarations
+        int[] empNo = new int[NUM_OF_EMPLOYEES];
+        double[] payRate = new double[NUM_OF_EMPLOYEES];
+        double[] hoursWorked = new double[NUM_OF_EMPLOYEES];
+        double[] regularPay = new double[NUM_OF_EMPLOYEES];
+        double[] overtimePay = new double[NUM_OF_EMPLOYEES];
+        double[] totalPay = new double[NUM_OF_EMPLOYEES];
+
+        // Populate empNo array
+        generateEmployeeNumbers(empNo);
+
+    } //--------------------------------------------------------------------END MAIN----------------------------//
+
+    // Initialize int array as all 0's
+    public static void initializeArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = 0;
+        }
     }
 
-    // Generate random employee number
-    public static int generateEmployeeNumber() {
-        int employeeNumber = (int) IR4.getRandomNumber(EMPLOYEE_NUMBER_MIN, EMPLOYEE_NUMBER_MAX);
-        return employeeNumber;
+    // Generate random employee numbers into an array
+    public static void generateEmployeeNumbers(int[] array) {
+
+        // Set all values of array = 0
+        initializeArray(array);
+        
+        // For loop to assign each element of the array an employee number
+        for (int i = 0; i < array.length; i++) {
+            int employeeNumber = IR4.getRandomNumber(EMPLOYEE_NUMBER_MIN, EMPLOYEE_NUMBER_MAX);
+            int count;
+            // Do while loop to create new numbers while employeeNumber == an existing element in the array
+            do {
+                count = 0;
+                for (int j = 0; j < array.length; j++) {
+                    if (employeeNumber == array[j]) {
+                        employeeNumber = IR4.getRandomNumber(EMPLOYEE_NUMBER_MIN, EMPLOYEE_NUMBER_MAX);
+                        count++;
+                    }
+                }
+            } while (count > 0);
+
+            array[i] = employeeNumber;
+        }
+
     }
 
     // Generate random hours worked
