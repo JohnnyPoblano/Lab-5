@@ -1,3 +1,9 @@
+/*
+**  John G
+**  CIS 131
+**  LAB 5
+*/
+
 public class Lab5 {
 
     // Constants
@@ -16,6 +22,14 @@ public class Lab5 {
     final static int QUARTER_LOW_INDEX = 0;
     final static int QUARTER_HIGH_INDEX = 3;
     final static double[] QUARTER_ARRAY = {QUARTER_0, QUARTER_1, QUARTER_2, QUARTER_3};
+
+    final static int PAY_RATE_MIN = 7;
+    final static int PAY_RATE_MAX = 20;
+    final static double PAY_RATE_INCREMENT_0 = 0.00;
+    final static double PAY_RATE_INCREMENT_1 = 0.50;
+    final static int PAY_RATE_LOW_INDEX = 0;
+    final static int PAY_RATE_HIGH_INDEX = 1;
+    final static double[] PAY_RATE_INCREMENT_ARRAY = {PAY_RATE_INCREMENT_0, PAY_RATE_INCREMENT_1};
     
     public static void main(String args[]) { //-------------------------------MAIN-------------------------------//
 
@@ -27,8 +41,9 @@ public class Lab5 {
         double[] overtimePay = new double[NUM_OF_EMPLOYEES];
         double[] totalPay = new double[NUM_OF_EMPLOYEES];
 
-        // Populate empNo array
+        // Populate arrays
         generateEmployeeNumbers(empNo);
+        generateHoursWorked(hoursWorked);
 
     } //--------------------------------------------------------------------END MAIN----------------------------//
 
@@ -67,16 +82,38 @@ public class Lab5 {
 
     }
 
-    // Generate random hours worked
-    public static double generateHoursWorked() {
-        double hoursWorked = (double) IR4.getRandomNumber(HOURS_WORKED_MIN, HOURS_WORKED_MAX);
+    // Generate random hours worked into an array
+    public static void generateHoursWorked(double[] array) {
         
-        // Add on quarter-hourly increments randomly (0, 0.25, 0.50, 0.75)
-        if (hoursWorked != HOURS_WORKED_MAX) {
-            int rand = IR4.getRandomNumber(QUARTER_LOW_INDEX, QUARTER_HIGH_INDEX);
-            hoursWorked += QUARTER_ARRAY[rand];
+        for (int i = 0; i < array.length; i++) {
+            
+            double hoursWorked = (int) IR4.getRandomNumber(HOURS_WORKED_MIN, HOURS_WORKED_MAX);
+            
+            // Add on quarter-hourly increments randomly (0, 0.25, 0.50, 0.75)
+            if (hoursWorked != HOURS_WORKED_MAX) {
+                int rand = IR4.getRandomNumber(QUARTER_LOW_INDEX, QUARTER_HIGH_INDEX);
+                hoursWorked += QUARTER_ARRAY[rand];
+            }
+            
+            array[i] = hoursWorked;
         }
-        
-        return hoursWorked; 
     }
+
+    // Generate random pay rates into an array
+    public static void generatePayRates(double[] array) {
+
+        for (int i = 0; i < array.length; i++) {
+            
+            double payRate = (int) IR4.getRandomNumber(PAY_RATE_MIN, PAY_RATE_MAX);
+            
+            // Add on half-hour increments randomly
+            if (payRate != PAY_RATE_MAX) {
+                int rand = IR4.getRandomNumber(0, 1);
+                hoursWorked += QUARTER_ARRAY[rand];
+            }
+            
+            array[i] = hoursWorked;
+        }
+    }
+
 }
