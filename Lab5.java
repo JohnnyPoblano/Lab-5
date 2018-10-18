@@ -30,6 +30,8 @@ public class Lab5 {
     final static int PAY_RATE_LOW_INDEX = 0;
     final static int PAY_RATE_HIGH_INDEX = 1;
     final static double[] PAY_RATE_INCREMENT_ARRAY = {PAY_RATE_INCREMENT_0, PAY_RATE_INCREMENT_1};
+
+    final static double OVERTIME_PAY_RATE = 1.75;
     
     public static void main(String args[]) { //-------------------------------MAIN-------------------------------//
 
@@ -44,6 +46,7 @@ public class Lab5 {
         // Populate arrays
         generateEmployeeNumbers(empNo);
         generateHoursWorked(hoursWorked);
+        generatePayRates(payRate);
 
     } //--------------------------------------------------------------------END MAIN----------------------------//
 
