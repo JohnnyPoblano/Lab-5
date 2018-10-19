@@ -25,6 +25,8 @@ public class Lab5 {
     final static int QUARTER_HIGH_INDEX = 3;
     final static double[] QUARTER_ARRAY = {QUARTER_0, QUARTER_1, QUARTER_2, QUARTER_3};
 
+    /* Pay rate constants should be similar to quarter constants so
+    they can be passed into the same function */
     final static int PAY_RATE_MIN = 7;
     final static int PAY_RATE_MAX = 20;
     final static double PAY_RATE_INCREMENT_0 = 0.00;
@@ -114,6 +116,22 @@ public class Lab5 {
             // Add on half-hour increments randomly
             if (payRate != PAY_RATE_MAX) {
                 int rand = IR4.getRandomNumber(0, 1);
+                hoursWorked += QUARTER_ARRAY[rand];
+            }
+            
+            array[i] = hoursWorked;
+        }
+    }
+
+    public static void generateRandomDoublesWithIncrements(double[] array, double[] incrementArray, int minimum, int maximum, int lowIndex, int highIndex) {
+        
+        for (int i = 0; i < array.length; i++) {
+            
+            double hoursWorked = (int) IR4.getRandomNumber(minimum, maximum);
+            
+            // Add on increments randomly
+            if (hoursWorked != maximum) {
+                int rand = IR4.getRandomNumber(lowIndex, highIndex);
                 hoursWorked += QUARTER_ARRAY[rand];
             }
             
