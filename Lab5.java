@@ -105,4 +105,11 @@ public class Lab5 {
         }
     }
 
+    /* This function calculates employee pay and returns 3 numbers
+    as requested by the .pdf */
+    public static double[] calculatePay() {
+        double array[] = new double[3];
+        return array;
+    }
+
 }
