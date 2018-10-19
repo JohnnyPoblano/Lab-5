@@ -15,6 +15,8 @@ public class Lab5 {
     final static int HOURS_WORKED_MIN = 30;
     final static int HOURS_WORKED_MAX = 50;
 
+    /* Quarter constants should be similar to pay rate constants so
+    they can be passed into the same function */
     final static double QUARTER_0 = 0.00;
     final static double QUARTER_1 = 0.25;
     final static double QUARTER_2 = 0.50;
