@@ -1,8 +1,8 @@
-/*
+/****************
 **  John G
 **  CIS 131
 **  LAB 5
-*/
+****************/
 
 public class Lab5 {
 
@@ -35,6 +35,13 @@ public class Lab5 {
     final static double[] PAY_RATE_INCREMENT_ARRAY = {PAY_RATE_INCREMENT_0, PAY_RATE_INCREMENT_1};
 
     final static double OVERTIME_PAY_RATE = 1.75;
+    final static int OVERTIME_HOURS = 40;
+
+    // Pay array constants
+    final static int NUMS_IN_PAY_ARRAY = 3;
+    final static int REGULAR_INDEX = 0;
+    final static int OVERTIME_INDEX = 1;
+    final static int TOTAL_INDEX = 2;
     
     public static void main(String args[]) { //-------------------------------MAIN-------------------------------//
 
@@ -46,10 +53,20 @@ public class Lab5 {
         double[] overtimePay = new double[NUM_OF_EMPLOYEES];
         double[] totalPay = new double[NUM_OF_EMPLOYEES];
 
-        // Populate arrays
+        // Populate employee num array
         generateEmployeeNumbers(empNo);
+
+        // Populate hours worked array
         generateRandomDoublesWithIncrements(hoursWorked, QUARTER_ARRAY, HOURS_WORKED_MIN, HOURS_WORKED_MAX, QUARTER_LOW_INDEX, QUARTER_HIGH_INDEX);
+        
+        // Populate pay rate array
         generateRandomDoublesWithIncrements(payRate, PAY_RATE_INCREMENT_ARRAY, PAY_RATE_MIN, PAY_RATE_MAX, PAY_RATE_LOW_INDEX, PAY_RATE_HIGH_INDEX);
+
+        // Populate remaining arrays in a loop module
+        populatePayArrays(hoursWorked, payRate, regularPay, totalPay, overtimePay);
+
+        // Display program output
+        displayReport(empNo, hoursWorked, payRate, regularPay, totalPay, overtimePay);
 
     } //--------------------------------------------------------------------END MAIN----------------------------//
 
@@ -107,9 +124,69 @@ public class Lab5 {
 
     /* This function calculates employee pay and returns 3 numbers
     as requested by the .pdf */
-    public static double[] calculatePay() {
-        double array[] = new double[3];
+    public static double[] calculatePay(double hours, double pay) {
+        double array[] = new double[NUMS_IN_PAY_ARRAY];
+
+        double regularPay = 0;
+        double overtimePay = 0;
+        double totalPay = 0;
+
+        // Calculate regular pay w/ overtime
+        if (hours > OVERTIME_HOURS) {
+            regularPay = OVERTIME_HOURS * pay;
+            overtimePay = ((hours - OVERTIME_HOURS) * pay) * OVERTIME_PAY_RATE;
+        }
+        
+        // Calculate regular pay w/o overtime
+        else {
+            regularPay = pay * hours;
+        }
+
+        // Calculate total pay
+        totalPay = regularPay + overtimePay;
+
+        // Put it all in an array to be returned
+        array[REGULAR_INDEX] = regularPay;
+        array[OVERTIME_INDEX] = overtimePay;
+        array[TOTAL_INDEX] = totalPay;
+
         return array;
+    }
+
+    // Populate pay arrays in a loop
+    public static void populatePayArrays(double[] hours, double[] rate, double[] regular, double[] total, double[] overtime) {
+        double[] payArray = new double [NUMS_IN_PAY_ARRAY];
+        for (int i = 0; i < NUM_OF_EMPLOYEES; i++) {
+            payArray = calculatePay(hours[i], rate[i]);
+            regular[i] = payArray[REGULAR_INDEX];
+            total[i] = payArray[TOTAL_INDEX];
+            overtime[i] = payArray[OVERTIME_INDEX];
+        }
+    }
+
+    // Display header
+    public static void displayHeader() {
+        System.out.println("---------------------- PAYROLL REPORT ---------------------------------");
+        System.out.println("Employee       Pay         Hours       Regular     Overtime      Total ");
+        System.out.println(" Number        Rate        Worked       Pay          Pay          Pay  ");
+        System.out.println("--------      ------      --------    ---------   ----------    -------");
+    }
+
+    // Display report
+    public static void displayReport(int[] employee, double[] hours, double[] rate, double[] regular, double[] total, double[] overtime) {
+
+        displayHeader();
+
+        for (int i = 0; i < NUM_OF_EMPLOYEES; i++) {
+            System.out.printf("  %-12d", employee[i]);
+            System.out.printf("%5.2f", rate[i]);
+            System.out.printf("%13.2f", hours[i]);
+            System.out.printf("%13.2f", regular[i]);
+            System.out.printf("%13.2f", overtime[i]);
+            System.out.printf("%13.2f", total[i]);
+            System.out.println();
+        }
+
     }
 
 }
